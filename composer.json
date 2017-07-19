@@ -1,0 +1,25 @@
+{
+    "name": "saq/statichelperbundle",
+    "description": "Helpers for Symfony >= 3",
+    "version" : "1.0.0",
+    "type" : "symfony-bundle",
+    "homepage": "https://github.com/saqot/StaticHelperBundle",
+    "license": "MIT",
+    "keywords" : ["symfony", "symfony bundle", "symfony helpers"],
+    "authors" : [{
+        "name" : "Mihail Shirnin",
+        "email" : "saqott@gmail.com"
+    }],
+    "require" : {
+        "php": ">=7.0",
+        "symfony/symfony": ">=3.2"
+    },
+    "autoload" : {
+        "psr-4" : { "Saq\\StaticHelperBundle\\" : "" }
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "1.0.x-dev"
+        }
+    }
+}
