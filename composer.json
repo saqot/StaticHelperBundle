@@ -1,5 +1,5 @@
 {
-    "name": "Saq/StaticHelperBundle",
+    "name": "saq/statichelperbundle",
     "description": "Helpers for Symfony >= 3",
     "version" : "1.0.0",
     "type" : "symfony-bundle",
