@@ -40,7 +40,5 @@ class SaqStaticHelperBundle extends Bundle
 	{
 		$params = (count($params) == 1) ? $params[0] : $params;
 		exit(VarDumper::dump($params));
-		// test
-
 	}
 }
