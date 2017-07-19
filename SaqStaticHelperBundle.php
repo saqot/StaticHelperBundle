@@ -4,6 +4,7 @@ namespace Saq\StaticHelperBundle;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * class: SaqStaticHelperBundle
@@ -28,5 +29,16 @@ class SaqStaticHelperBundle extends Bundle
 	public static function getContainer()
 	{
 		return self::$containerInstance;
+	}
+
+	/**
+	 * Хелпер Дамепра от Symfony, передавать можно любое количество парметров
+	 * Оборнут в exit , для остановки дальнейшего вывода кода
+	 * @param $params
+	 */
+	public static function dumpExit(...$params)
+	{
+		$params = (count($params) == 1) ? $params[0] : $params;
+		exit(VarDumper::dump($params));
 	}
 }
