@@ -8,13 +8,13 @@ Saq StaticHelperBundle
 
 ### Composer
 ```bash
-$ php composer require saq/statichelperbundle:dev-master
+$ php composer require saq/statichelperbundle
 ```
 или можно добавить в конфиг composer.json строку вида
 ```json
 {
     "require" : {
-        "saq/statichelperbundle": "dev-master"
+        "saq/statichelperbundle": "^1.0"
     }
 }
 ```
