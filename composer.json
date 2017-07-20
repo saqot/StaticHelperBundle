@@ -7,7 +7,7 @@
     "license": "MIT",
     "keywords" : ["symfony", "symfony bundle", "symfony helpers"],
     "authors" : [{
-        "name" : "Mihail Shirnin",
+        "name" : "Mihail Shirnin / Saqot",
         "email" : "saqott@gmail.com"
     }],
     "require" : {
