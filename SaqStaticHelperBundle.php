@@ -50,7 +50,8 @@ class SaqStaticHelperBundle extends Bundle
 	 */
 	public static function dumpExit(...$params)
 	{
-		exit(static::dump($params));
+		$params = (count($params) <= 1) ? $params[0] : $params;
+		exit(VarDumper::dump($params));
 	}
 
 }
