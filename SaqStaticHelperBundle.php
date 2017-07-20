@@ -2,6 +2,7 @@
 
 namespace Saq\StaticHelperBundle;
 
+use Saq\StaticHelperBundle\Helper\ArraySaq;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\VarDumper\VarDumper;
@@ -16,12 +17,12 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class SaqStaticHelperBundle extends Bundle
 {
-	private static $containerInstance = null;
+	private static $oContainer;
 
 	public function setContainer(ContainerInterface $container = null)
 	{
 		parent::setContainer($container);
-		self::$containerInstance = $container;
+		self::$oContainer = $container;
 	}
 
 	/**
@@ -29,7 +30,16 @@ class SaqStaticHelperBundle extends Bundle
 	 */
 	public static function getContainer()
 	{
-		return self::$containerInstance;
+		return self::$oContainer;
+	}
+
+	/**
+	 * Хелпер по работе с массивами
+	 * @return ArraySaq
+	 */
+	public static function ArraySaq()
+	{
+		return ArraySaq::that();
 	}
 
 
