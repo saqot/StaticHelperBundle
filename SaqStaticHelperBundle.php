@@ -5,6 +5,7 @@ namespace Saq\StaticHelperBundle;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Saq\StaticHelperBundle\Helper\ArraySaq;
+use Saq\StaticHelperBundle\Helper\StrSaq;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -106,6 +107,14 @@ class SaqStaticHelperBundle extends Bundle
 		return ArraySaq::that();
 	}
 
+	/**
+	 * Хелпер по работе со строками
+	 * @return StrSaq
+	 */
+	public static function StrSaq()
+	{
+		return StrSaq::that();
+	}
 
 	/**
 	 * Хелпер Дамепра от Symfony, передавать можно любое количество парметров
