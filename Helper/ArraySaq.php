@@ -138,5 +138,24 @@ class ArraySaq
 
 		return $arrayEl;
 	}
+
+	/**
+	 * @param array $vars
+	 * @param null|string $charlist [optional] <p>
+	 *                              default: " \t\n\r\0\x0B"
+	 *                              </p>
+	 * @return array
+	 */
+	public static function trimmed(array $vars, $charlist = null)
+	{
+		foreach ($vars as $k => $v) {
+			if (is_array($v)) {
+				$vars[$k] = static::trimmed($v);
+			} else {
+				$vars[$k] = trim($v, $charlist);
+			}
+		}
+		return $vars;
+	}
 }
 

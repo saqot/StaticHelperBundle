@@ -5,9 +5,11 @@ namespace Saq\StaticHelperBundle;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Saq\StaticHelperBundle\Helper\ArraySaq;
+use Saq\StaticHelperBundle\Helper\RequestSaq;
 use Saq\StaticHelperBundle\Helper\StrSaq;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\VarDumper\VarDumper;
@@ -26,6 +28,8 @@ class SaqStaticHelperBundle extends Bundle
 	private static $oTranslator;
 	private static $oDoctrine;
 	private static $oEntityManager;
+	private static $oRequestStack;
+
 
 	public function setContainer(ContainerInterface $container = null)
 	{
@@ -60,7 +64,7 @@ class SaqStaticHelperBundle extends Bundle
 	{
 		if (!self::$oTranslator) {
 			if (!self::getContainer()->has('translator')) {
-				throw new \LogicException('translator not found');
+				throw new \LogicException('The translator is not found');
 			}
 			self::$oTranslator = self::getContainer()->get('translator');
 		}
@@ -99,6 +103,22 @@ class SaqStaticHelperBundle extends Bundle
 	}
 
 	/**
+	 * @return object|RequestStack
+	 * @throws \LogicException
+	 */
+	public static function getRequestStack()
+	{
+		if (!self::$oRequestStack) {
+			if (!self::getContainer()->has('request_stack')) {
+				throw new \LogicException('The request_stack is not found');
+			}
+			self::$oRequestStack = self::getContainer()->get('request_stack');
+		}
+
+		return self::$oRequestStack;
+	}
+
+	/**
 	 * Хелпер по работе с массивами
 	 * @return ArraySaq
 	 */
@@ -114,6 +134,15 @@ class SaqStaticHelperBundle extends Bundle
 	public static function StrSaq()
 	{
 		return StrSaq::that();
+	}
+
+	/**
+	 * Хелпер по работе с Request данными
+	 * @return RequestSaq
+	 */
+	public static function RequestSaq()
+	{
+		return RequestSaq::that();
 	}
 
 	/**
