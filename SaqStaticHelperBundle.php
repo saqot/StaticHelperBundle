@@ -3,6 +3,7 @@
 namespace Saq\StaticHelperBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
 use Saq\StaticHelperBundle\Helper\ArraySaq;
 use Saq\StaticHelperBundle\Helper\RequestSaq;
@@ -85,6 +86,16 @@ class SaqStaticHelperBundle extends Bundle
 		}
 
 		return self::$oDoctrine;
+	}
+
+	/**
+	 * @param      $objectName
+	 * @param null $managerName
+	 * @return ObjectRepository
+	 */
+	public static function getRepository($objectName, $managerName = null)
+	{
+		return self::getDoctrine()->getRepository($objectName, $managerName);
 	}
 
 	/**
