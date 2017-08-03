@@ -1,7 +1,7 @@
 <?php
 
 namespace Saq\StaticHelperBundle\Helper;
-use Saq\StaticHelperBundle\SaqStaticHelperBundle;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -37,7 +37,7 @@ class RequestSaq
 			if (php_sapi_name() == 'cli') {
 				self::$sfRequest = new Request();
 			} else {
-				self::$sfRequest = SaqStaticHelperBundle::getRequestStack()->getCurrentRequest();
+				self::$sfRequest = AppSaq::getRequestStack()->getCurrentRequest();
 			}
 		}
 
@@ -88,6 +88,14 @@ class RequestSaq
 		return StrSaq::isInStr(self::getCurRoute(), $method);
 	}
 
+	/**
+	 * Получение значения переменных из любых Request запросов
+	 * @param null $name
+	 * @param null $default
+	 * @param int  $filter
+	 * @param int  $flags
+	 * @return mixed|null
+	 */
 	public static function get($name = NULL, $default = NULL, $filter = FILTER_UNSAFE_RAW, $flags = FILTER_FLAG_ENCODE_LOW)
 	{
 		if (!self::$aVars) {
