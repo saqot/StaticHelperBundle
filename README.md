@@ -56,6 +56,7 @@ class App extends AppSaq
 ```php
 $oTwig = App::getContainer()->get('twig');
 ```
+
 Наследоваться не обязательно, можно сразу использовать классы хелпера, например
 ```php
 $oTwig = AppSaq::getContainer()->get('twig');
