@@ -41,12 +41,12 @@ public function registerBundles()
 
 namespace WebBundle\Helper;
 
-use Saq\StaticHelperBundle\SaqStaticHelperBundle;
+use Saq\StaticHelperBundle\Helper\AppSaq;
 
 /**
  * class: App
  */
-class App extends SaqStaticHelperBundle
+class App extends AppSaq
 { 
 	 // здесь можно дополнять или переопределять статические методы
 }
@@ -55,4 +55,8 @@ class App extends SaqStaticHelperBundle
 получим объект щаблонизатора Twig
 ```php
 $oTwig = App::getContainer()->get('twig');
+```
+Наследоваться не обязательно, можно сразу использовать классы хелпера, например
+```php
+$oTwig = AppSaq::getContainer()->get('twig');
 ```
