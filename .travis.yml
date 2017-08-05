@@ -2,3 +2,9 @@ language: php
 php:
   - '7.0'
   - '7.1'
+env:
+  global:
+    - CI=true
+  matrix:
+    - TEST_DOC=false
+    - TEST_DOC=true
