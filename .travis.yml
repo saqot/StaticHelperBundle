@@ -1,10 +1,12 @@
 language: php
 php:
   - '7.0'
-  - '7.1'
 env:
-  global:
-    - CI=true
-  matrix:
-    - TEST_DOC=false
-    - TEST_DOC=true
+  - DB=mysql
+  - DB=pgsql
+matrix:
+  exclude:
+    - php: hhvm
+      env: DB=pgsql  # PDO driver for pgsql is unsupported by HHVM (3rd party install for support)
+  allow_failures:
+    - php: 7.0
