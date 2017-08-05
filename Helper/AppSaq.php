@@ -2,6 +2,7 @@
 
 namespace Saq\StaticHelperBundle\Helper;
 
+use Monolog\Logger;
 use Saq\StaticHelperBundle\SaqStaticHelperBundle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -9,8 +10,12 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\VarDumper\VarDumper;
+use Twig_Environment;
 
 /**
  * class:  AppSaq
@@ -22,11 +27,30 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class AppSaq 
 {
+	public static $oLogger;
+	public static $oKernel;
+	private static $oSession;
+	private static $oTwig;
 	private static $oContainer;
 	private static $oTranslator;
 	private static $oDoctrine;
 	private static $oEntityManager;
 	private static $oRequestStack;
+
+	/**
+	 * @return KernelInterface|Kernel
+	 */
+	public static function getKernel()
+	{
+		if (!self::$oKernel) {
+			if (!self::getContainer()->has('kernel')) {
+				throw new \LogicException('The KernelInterface is not found');
+			}
+			self::$oKernel = self::getContainer()->get('kernel');
+		}
+
+		return self::$oKernel;
+	}
 
 	/**
 	 * @return ContainerInterface
@@ -122,6 +146,50 @@ class AppSaq
 		return self::$oRequestStack;
 	}
 
+	/**
+	 * @return Twig_Environment
+	 */
+	public static function getTwig()
+	{
+		if (!self::getContainer()->has('twig')) {
+			throw new \LogicException('The twig is not found');
+		}
+		if (!self::$oTwig) {
+			self::$oTwig = self::getContainer()->get('twig');
+		}
+
+		return self::$oTwig;
+	}
+
+	/**
+	 * @return Session
+	 */
+	public static function getSession()
+	{
+		if (!self::$oSession) {
+			if (!self::getContainer()->has('Session')) {
+				throw new \LogicException('The Session is not found');
+			}
+			self::$oSession = self::getContainer()->get('session');
+		}
+
+		return self::$oSession;
+	}
+
+	/**
+	 * @return Logger
+	 */
+	public static function getLogger()
+	{
+		if (!self::$oLogger) {
+			if (!self::getContainer()->has('logger')) {
+				throw new \LogicException('The Monolog/Logger is not found');
+			}
+			self::$oLogger = self::getContainer()->get('logger');
+		}
+
+		return self::$oLogger;
+	}
 
 	/**
 	 * Хелпер Дамепра от Symfony, передавать можно любое количество парметров
