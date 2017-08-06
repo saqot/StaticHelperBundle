@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
  * class: RequestSaq
  * хелпер по работе с Request данными
  * -----------------------------------------------------
- * @date 23.07.2017
- * @author Saqot (Mihail Shirnin) <saqott@gmail.com>
+ * @date    23.07.2017
+ * @author  Saqot (Mihail Shirnin) <saqott@gmail.com>
  * @package Saq\StaticHelperBundle\Helper
  */
-class RequestSaq 
+class RequestSaq
 {
 	private static $sfRequest;
 	private static $aVars = [];
@@ -89,6 +89,25 @@ class RequestSaq
 	}
 
 	/**
+	 * - Получаем файл из запроса
+	 * todo тут еще надо будет доработать по проверке валидности файла.
+	 * @param     $name
+	 * @param int $filter
+	 * @param int $flags
+	 * @return mixed
+	 */
+	public static function getFiles($name = null, $filter = FILTER_SANITIZE_STRING, $flags = FILTER_FLAG_STRIP_LOW)
+	{
+		if ($name) {
+			$files = static::sfRequest()->files->get($name);
+
+			return self::filter($files, $filter, $flags);
+		} else {
+			return static::sfRequest()->files->all();
+		}
+	}
+
+	/**
 	 * Получение значения переменных из любых Request запросов
 	 * @param null $name
 	 * @param null $default
@@ -96,7 +115,7 @@ class RequestSaq
 	 * @param int  $flags
 	 * @return mixed|null
 	 */
-	public static function get($name = NULL, $default = NULL, $filter = FILTER_UNSAFE_RAW, $flags = FILTER_FLAG_ENCODE_LOW)
+	public static function get($name = null, $default = null, $filter = FILTER_UNSAFE_RAW, $flags = FILTER_FLAG_ENCODE_LOW)
 	{
 		if (!self::$aVars) {
 
@@ -134,7 +153,6 @@ class RequestSaq
 			return filter_var($var, $filter, $flags);
 		}
 	}
-	
-	
+
 }
 
