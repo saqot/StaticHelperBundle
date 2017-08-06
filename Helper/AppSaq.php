@@ -167,7 +167,7 @@ class AppSaq
 	public static function getSession()
 	{
 		if (!self::$oSession) {
-			if (!self::getContainer()->has('Session')) {
+			if (!self::getContainer()->has('session')) {
 				throw new \LogicException('The Session is not found');
 			}
 			self::$oSession = self::getContainer()->get('session');
