@@ -9,7 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -20,13 +20,14 @@ use Twig_Environment;
 /**
  * class:  AppSaq
  * -----------------------------------------------------
- * @author  Saqot (Mihail Shirnin) <saqott@gmail.com>
+ * @author   Saqot (Mihail Shirnin) <saqott@gmail.com>
  * @package  Saq\StaticHelperBundle\Helper
  * -----------------------------------------------------
  * 03.08.2017
  */
-class AppSaq 
+class AppSaq
 {
+	public static $oRequest;
 	private static $oLogger;
 	private static $oKernel;
 	private static $oSession;
@@ -35,7 +36,6 @@ class AppSaq
 	private static $oTranslator;
 	private static $oDoctrine;
 	private static $oEntityManager;
-	private static $oRequestStack;
 
 	/**
 	 * @return KernelInterface|Kernel
@@ -60,6 +60,7 @@ class AppSaq
 		if (!self::$oContainer) {
 			self::$oContainer = SaqStaticHelperBundle::getContainer();
 		}
+
 		return self::$oContainer;
 	}
 
@@ -86,6 +87,7 @@ class AppSaq
 			}
 			self::$oTranslator = self::getContainer()->get('translator');
 		}
+
 		return self::$oTranslator;
 	}
 
@@ -123,27 +125,24 @@ class AppSaq
 	{
 		$key = $name ? $name : 'default';
 
-		if (empty(self::$oEntityManager[$key])) {
-			self::$oEntityManager[$key] = self::getDoctrine()->getManager($name);
+		if (empty(self::$oEntityManager[ $key ])) {
+			self::$oEntityManager[ $key ] = self::getDoctrine()->getManager($name);
 		}
 
-		return self::$oEntityManager[$key];
+		return self::$oEntityManager[ $key ];
 	}
 
 	/**
-	 * @return object|RequestStack
+	 * @return object|Request
 	 * @throws \LogicException
 	 */
-	public static function getRequestStack()
+	public static function getRequest()
 	{
-		if (!self::$oRequestStack) {
-			if (!self::getContainer()->has('request_stack')) {
-				throw new \LogicException('The request_stack is not found');
-			}
-			self::$oRequestStack = self::getContainer()->get('request_stack');
+		if (!self::$oRequest) {
+			self::$oRequest = RequestSaq::getRequest();
 		}
 
-		return self::$oRequestStack;
+		return self::$oRequest;
 	}
 
 	/**
@@ -203,6 +202,7 @@ class AppSaq
 		} else {
 			$params = '';
 		}
+
 		return VarDumper::dump($params);
 	}
 

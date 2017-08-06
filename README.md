@@ -47,7 +47,7 @@ Method                                              | Description
 `AppSaq::getDoctrine();`                            | объект DoctrineBundle
 `AppSaq::getRepository();`                          | получение Репозитория указанной сущности
 `AppSaq::em();`                                     | объект EntityManager
-`AppSaq::getRequestStack();`                        | объект Request
+`AppSaq::getRequest();`                        		| объект Request
 `AppSaq::getTwig();`                                | объект шаблонизатора Twig
 `AppSaq::getSession();`                             | объект для работы с сессиями
 `AppSaq::getLogger();`                              | логгер

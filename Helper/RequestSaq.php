@@ -3,6 +3,7 @@
 namespace Saq\StaticHelperBundle\Helper;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * class: RequestSaq
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RequestSaq
 {
+	public static $oRequestStack;
 	private static $sfRequest;
 	private static $aVars = [];
 
@@ -27,21 +29,35 @@ class RequestSaq
 	}
 
 	/**
-	 * Получаем экземпляр класса "Request" Symfony
+	 * Получаем экземпляр класса "Request"
 	 * на основе текущих значений глобальных переменных PHP
-	 * @return Request
+	 * @return object|Request
 	 */
-	public static function sfRequest()
-	{
+	public static function getRequest() {
 		if (!self::$sfRequest) {
-			if (php_sapi_name() == 'cli') {
-				self::$sfRequest = new Request();
-			} else {
-				self::$sfRequest = AppSaq::getRequestStack()->getCurrentRequest();
+			if (!$sfRequest = self::getRequestStack()->getCurrentRequest()) {
+				$sfRequest = new Request();
 			}
+			self::$sfRequest = $sfRequest;
 		}
 
 		return self::$sfRequest;
+	}
+
+	/**
+	 * @return object|RequestStack
+	 * @throws \LogicException
+	 */
+	public static function getRequestStack()
+	{
+		if (!self::$oRequestStack) {
+			if (!AppSaq::getContainer()->has('request_stack')) {
+				throw new \LogicException('The request_stack is not found');
+			}
+			self::$oRequestStack = AppSaq::getContainer()->get('request_stack');
+		}
+
+		return self::$oRequestStack;
 	}
 
 	/**
@@ -53,7 +69,7 @@ class RequestSaq
 		if (self::get('asJson')) {
 			return true;
 		}
-		if (self::sfRequest()->isXmlHttpRequest()) {
+		if (self::getRequest()->isXmlHttpRequest()) {
 			return true;
 		}
 
@@ -65,7 +81,7 @@ class RequestSaq
 	 */
 	public static function getCurRoute()
 	{
-		return self::sfRequest()->get('_route');
+		return self::getRequest()->get('_route');
 	}
 
 	/**
@@ -99,11 +115,11 @@ class RequestSaq
 	public static function getFiles($name = null, $filter = FILTER_SANITIZE_STRING, $flags = FILTER_FLAG_STRIP_LOW)
 	{
 		if ($name) {
-			$files = static::sfRequest()->files->get($name);
+			$files = static::getRequest()->files->get($name);
 
 			return self::filter($files, $filter, $flags);
 		} else {
-			return static::sfRequest()->files->all();
+			return static::getRequest()->files->all();
 		}
 	}
 
@@ -131,14 +147,14 @@ class RequestSaq
 	{
 		if (!self::$aVars) {
 
-			if (!empty(self::sfRequest()->attributes->all())) {
-				self::$aVars = array_merge(self::$aVars, self::sfRequest()->attributes->all());
+			if (!empty(self::getRequest()->attributes->all())) {
+				self::$aVars = array_merge(self::$aVars, self::getRequest()->attributes->all());
 			}
-			if (!empty(self::sfRequest()->query->all())) {
-				self::$aVars = array_merge(self::$aVars, self::sfRequest()->query->all());
+			if (!empty(self::getRequest()->query->all())) {
+				self::$aVars = array_merge(self::$aVars, self::getRequest()->query->all());
 			}
-			if (!empty(self::sfRequest()->request->all())) {
-				self::$aVars = array_merge(self::$aVars, self::sfRequest()->request->all());
+			if (!empty(self::getRequest()->request->all())) {
+				self::$aVars = array_merge(self::$aVars, self::getRequest()->request->all());
 			}
 			// обрезаем пустые символы
 			self::$aVars = ArraySaq::trimmed(self::$aVars);
