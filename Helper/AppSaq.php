@@ -27,8 +27,8 @@ use Twig_Environment;
  */
 class AppSaq 
 {
-	public static $oLogger;
-	public static $oKernel;
+	private static $oLogger;
+	private static $oKernel;
 	private static $oSession;
 	private static $oTwig;
 	private static $oContainer;
