@@ -108,6 +108,18 @@ class RequestSaq
 	}
 
 	/**
+	 * Получаем строку в JSON формате и отдаем массивом
+	 * @param        $name
+	 * @param string $default
+	 *
+	 * @return mixed
+	 */
+	public static function getJson($name, $default = ''){
+		$val = self::get($name, $default);
+		return json_decode(html_entity_decode($val), true);
+	}
+
+	/**
 	 * Получение значения переменных из любых Request запросов
 	 * @param null $name
 	 * @param null $default
