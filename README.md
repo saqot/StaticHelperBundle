@@ -1,5 +1,7 @@
 Saq StaticHelperBundle
 =================
+[![Latest Stable Version](https://poser.pugx.org/saq/statichelperbundle/v/stable)](https://packagist.org/packages/saq/statichelperbundle)
+[![Total Downloads](https://poser.pugx.org/saq/statichelperbundle/downloads)](https://packagist.org/packages/saq/statichelperbundle)
 
 Бандл являет собой по сути сборку различных хелперов
 
@@ -14,11 +16,13 @@ $ php composer require saq/statichelperbundle
 ```json
 {
     "require" : {
-        "saq/statichelperbundle": "^1.0"
+        "saq/statichelperbundle": "^1.2"
     }
 }
 ```
-Регистрируем бандл. Добаляем в файл app/AppKernel.php строку вида
+Регистрируем бандл. Это необходимо для возможности получения контейнера хелпером.
+Добаляем в файл app/AppKernel.php строку вида
+
 ```php
 // app/AppKernel.php
 
@@ -31,6 +35,25 @@ public function registerBundles()
     );
 }
 ```
+
+### AppSaq
+
+Method                                              | Description
+--------------------------------------------------- | --------------------------------------------------
+`AppSaq::getKernel();`                              | объект KernelInterface
+`AppSaq::getContainer();`                           | объект ContainerInterface
+`AppSaq::getParameter();`                           | получение значений из app/config/parameters.yml
+`AppSaq::getTranslator();`                          | объект Translator
+`AppSaq::getDoctrine();`                            | объект DoctrineBundle
+`AppSaq::getRepository();`                          | получение Репозитория указанной сущности
+`AppSaq::em();`                                     | объект EntityManager
+`AppSaq::getRequestStack();`                        | объект Request
+`AppSaq::getTwig();`                                | объект шаблонизатора Twig
+`AppSaq::getSession();`                             | объект для работы с сессиями
+`AppSaq::getLogger();`                              | логгер
+`AppSaq::dump();`                                   | VarDumper от SF
+`AppSaq::dumpExit();`                               | VarDumper от SF c прерываением кода
+
 
 Настройка
 -------------
