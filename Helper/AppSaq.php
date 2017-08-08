@@ -213,7 +213,12 @@ class AppSaq
 	 */
 	public static function dumpExit(...$params)
 	{
-		exit(self::dump($params));
+		if ($params) {
+			$params = (count($params) <= 1) ? $params[0] : $params;
+		} else {
+			$params = '';
+		}
+		exit(VarDumper::dump($params));
 	}
 }
 

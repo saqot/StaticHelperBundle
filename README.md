@@ -1,7 +1,7 @@
 Saq StaticHelperBundle
 =================
 [![Latest Stable Version](https://poser.pugx.org/saq/statichelperbundle/v/stable)](https://packagist.org/packages/saq/statichelperbundle)
-[![Total Downloads](https://poser.pugx.org/saq/statichelperbundle/downloads)](https://packagist.org/packages/saq/statichelperbundle)
+[![Total Downloads](https:// /saq/statichelperbundle/downloads)](https://packagist.org/packages/saq/statichelperbundle)
 
 Бандл являет собой по сути сборку различных хелперов
 
