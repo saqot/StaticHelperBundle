@@ -15,7 +15,7 @@ matrix:
   fast_finish: true
   include:
       - php: 7.0
-        env: SYMFONY_VERSION="3.1.*"
+        env: SYMFONY_VERSION="3.1.*" DB=mysql
 
 # Define an environment variable
 #env:
@@ -25,6 +25,7 @@ matrix:
 before-install:
   - composer self-update
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony:${SYMFONY_VERSION}; fi
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
 
 # Install composer dependencies,
 # Create database, schema and fixtures
@@ -32,4 +33,5 @@ install:
   - composer install
 
 # Run script
-script: phpunit -v
+script:
+  - phpunit
