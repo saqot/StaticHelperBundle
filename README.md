@@ -1,6 +1,6 @@
 Saq StaticHelperBundle
 =================
-[![Build Status](https://travis-ci.org/saqot/StaticHelperBundle)](http://travis-ci.org/saqot/StaticHelperBundle)
+[![Build Status](https://secure.travis-ci.org/saqot/StaticHelperBundle.png?branch=master)](http://travis-ci.org/saqot/StaticHelperBundle)
 [![Latest Stable Version](https://poser.pugx.org/saq/statichelperbundle/v/stable)](https://packagist.org/packages/saq/statichelperbundle)
 [![Total Downloads](https://poser.pugx.org/saq/statichelperbundle/downloads)](https://packagist.org/packages/saq/statichelperbundle)
 

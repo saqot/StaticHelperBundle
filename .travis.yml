@@ -32,4 +32,4 @@ install:
 
 # Run script
 script:
-  - if [ "$VALIDATE_DOCS" != true ]; then ./vendor/bin/phpunit; fi
+  - composer test
