@@ -23,6 +23,7 @@ env:
 # Update composer
 before-install:
   - composer self-update
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony:${SYMFONY_VERSION}; fi
 
 # Install composer dependencies,
 # Create database, schema and fixtures
@@ -31,4 +32,4 @@ install:
 
 # Run script
 script:
-  - phpunit
+  - if [ "$VALIDATE_DOCS" != true ]; then ./vendor/bin/phpunit; fi
