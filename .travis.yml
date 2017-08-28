@@ -29,7 +29,6 @@ before-install:
 install:
   - composer install
 
-
 # Run script
 script:
   - phpunit
