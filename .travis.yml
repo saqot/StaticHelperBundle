@@ -31,5 +31,5 @@ install:
   - composer install
 
 # Run script
-script:
-  - composer test
+#script:
+#  - composer test
