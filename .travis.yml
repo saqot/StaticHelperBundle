@@ -34,4 +34,4 @@ install:
 
 # Run script
 script:
-  - phpunit
+  - php -v
