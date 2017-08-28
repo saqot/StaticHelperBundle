@@ -7,18 +7,19 @@ sudo: false
 # Cache composer packages so "composer install" is faster
 cache:
     directories:
-        - $HOME/.composer/cache
+      - $HOME/.composer/cache
 
 # Matrix to test in every php version
 matrix:
   # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
   fast_finish: true
   include:
-    - php: 7.0
+      - php: 7.0
+        env: SYMFONY_VERSION="3.1.*"
 
 # Define an environment variable
-env:
-  - SYMFONY_VERSION="3.0.*"
+#env:
+#  - SYMFONY_VERSION="3.0.*"
 
 # Update composer
 before-install:
@@ -31,5 +32,4 @@ install:
   - composer install
 
 # Run script
-#script:
-#  - composer test
+script: phpunit -v
