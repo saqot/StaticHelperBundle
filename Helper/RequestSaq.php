@@ -33,7 +33,8 @@ class RequestSaq
 	 * на основе текущих значений глобальных переменных PHP
 	 * @return object|Request
 	 */
-	public static function getRequest() {
+	public static function getRequest()
+	{
 		if (!self::$sfRequest) {
 			if (!$sfRequest = self::getRequestStack()->getCurrentRequest()) {
 				$sfRequest = new Request();
@@ -124,15 +125,19 @@ class RequestSaq
 	}
 
 	/**
-	 * Получаем строку в JSON формате и отдаем массивом
-	 * @param        $name
-	 * @param string $default
-	 *
+	 * Получаем строку в JSON формате
+	 * @param null|string $name
+	 * @param string      $default
 	 * @return mixed
 	 */
-	public static function getJson($name, $default = ''){
+	public static function getJson($name = null, $default = '')
+	{
 		$val = self::get($name, $default);
-		return json_decode(html_entity_decode($val), true);
+		if (is_string($val)) {
+			$val = [$name => html_entity_decode($val)];
+		}
+
+		return json_encode($val);
 	}
 
 	/**
