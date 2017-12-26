@@ -104,8 +104,8 @@ class StrSaq
 	static public function ucFirstOnly($str)
 	{
 		$str = trim($str);
-		$str = mb_convert_case(mb_substr($str, 0, 1, 'UTF-8'), MB_CASE_UPPER, 'UTF-8') .
-			mb_substr($str, 1, mb_strlen($str), 'UTF-8');
+		$str = (mb_convert_case(mb_substr($str, 0, 1, 'UTF-8'), MB_CASE_UPPER, 'UTF-8') .
+			mb_substr($str, 1, mb_strlen($str), 'UTF-8'));
 		return $str;
 	}
 
